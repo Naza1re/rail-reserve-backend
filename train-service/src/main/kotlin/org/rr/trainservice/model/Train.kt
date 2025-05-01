@@ -10,10 +10,10 @@ data class Train(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    val name: String,
+    var name: String,
 
-    val type: String,
+    var type: String,
 
     @OneToMany(mappedBy = "train", cascade = [CascadeType.ALL])
-    val wagons: List<Wagon> = emptyList()
+    var wagons: List<Wagon> = emptyList()
 )
