@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: train-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_RR_URL:jdbc:postgresql://localhost:5432/rr}
+    password: ${DB_RR_PASS:rr}
+    username: ${DB_RR_USER:rr}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    enabled: true
+server:
+  port: ${SERVER_PORT:8080}
