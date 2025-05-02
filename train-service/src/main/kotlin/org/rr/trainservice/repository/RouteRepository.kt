@@ -1,13 +1,13 @@
 package org.rr.trainservice.repository
 
-import org.rr.trainservice.model.Wagon
+import org.rr.trainservice.model.Route
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 
-interface WagonRepository : JpaRepository<Wagon, Long>, JpaSpecificationExecutor<Wagon> {
+interface RouteRepository : JpaRepository<Route, Long>, JpaSpecificationExecutor<Route> {
 
-    @Query("SELECT w FROM Wagon w WHERE w.id IN :ids AND w.train IS NULL")
-    fun findUnassignedWagonsByIds(@Param("ids") ids: List<Long>): List<Wagon>
+    @Query("SELECT r FROM Route r WHERE r.id IN :ids")
+    fun findByRoutesId(@Param("ids") ids: List<Long>): List<Route>
 }

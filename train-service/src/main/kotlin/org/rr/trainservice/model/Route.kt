@@ -8,13 +8,13 @@ data class Route(
     val id: Long = 0,
 
     @ManyToOne
-    val fromStation: Station,
+    var fromStation: Station?,
 
     @ManyToOne
-    val toStation: Station,
+    var toStation: Station?,
 
-    val durationMinutes: Int,
+    var durationMinutes: Int,
 
-    @OneToMany(mappedBy = "route", cascade = [CascadeType.ALL])
-    val stops: List<RouteStop> = emptyList()
+    @OneToMany(mappedBy = "route", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var stops: MutableList<RouteStop> = mutableListOf()
 )

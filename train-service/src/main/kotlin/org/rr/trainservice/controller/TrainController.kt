@@ -1,7 +1,7 @@
 package org.rr.trainservice.controller
 
-import org.rr.trainservice.dto.TrainRequest
-import org.rr.trainservice.dto.TrainResponse
+import org.rr.trainservice.dto.request.TrainRequest
+import org.rr.trainservice.dto.response.TrainResponse
 import org.rr.trainservice.model.Train
 import org.rr.trainservice.service.TrainService
 import org.springframework.data.domain.Page
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/v1/trains")
 class TrainController(val trainService: TrainService) {
-
 
     @GetMapping
     fun getAllTrains(@RequestParam size: Int,
@@ -36,5 +35,10 @@ class TrainController(val trainService: TrainService) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 
-
+    @PutMapping("/{id}")
+    fun updateTrain(@PathVariable id: Long,
+                    @RequestBody request: TrainRequest
+    ) : ResponseEntity<TrainResponse> {
+        return ResponseEntity.ok(trainService.updateTrainByRequest(id, request))
+    }
 }

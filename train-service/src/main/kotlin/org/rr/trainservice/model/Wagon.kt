@@ -1,5 +1,6 @@
 package org.rr.trainservice.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -14,5 +15,6 @@ data class Wagon(
     val seatCount: Int,
 
     @ManyToOne
-    val train: Train
+    @JsonIgnore
+    var train: Train
 )

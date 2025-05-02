@@ -1,5 +1,6 @@
 package org.rr.trainservice.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.time.LocalTime
 
@@ -7,13 +8,14 @@ import java.time.LocalTime
 @Table(name = "route_stop")
 data class RouteStop(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Long,
 
     @ManyToOne
-    val route: Route,
+    @JsonIgnore
+    var route: Route?,
 
     @ManyToOne
-    val station: Station,
+    var station: Station?,
 
     val arrivalTime: LocalTime,
     val departureTime: LocalTime,
