@@ -17,7 +17,6 @@ class RouteService(private val routeStopService: RouteStopService,
                    private val routeRepository: RouteRepository,
                    private val stationService: StationService,
                    private val routeMapper: RouteMapper,
-
 ) {
 
     @Transactional(readOnly = true)
@@ -65,7 +64,7 @@ class RouteService(private val routeStopService: RouteStopService,
     }
 
     private fun getRoutOrThrow(id: Long) : Route {
-        return routeRepository.findById(id).orElseThrow{
+        return routeRepository.findById(id).orElseThrow {
             RouteNotFoundException("Route with id $id not found")
         }
     }
