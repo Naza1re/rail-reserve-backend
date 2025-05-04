@@ -19,10 +19,22 @@ spec:
             - containerPort: 8080
           env:
             - name: DB_RR_URL
-              value: jdbc:postgresql://postgres:5432/rr
+              valueFrom:
+                configMapKeyRef:
+                  name: train-service-config
+                  key: DB_RR_URL
             - name: DB_RR_USER
-              value: rr
+              valueFrom:
+                secretKeyRef:
+                  name: train-service-secrets
+                  key: DB_RR_USER
             - name: DB_RR_PASS
-              value: rr
+              valueFrom:
+                secretKeyRef:
+                  name: train-service-secrets
+                  key: DB_RR_PASS
             - name: SERVER_PORT
-              value: "8080"
+              valueFrom:
+                configMapKeyRef:
+                  name: train-service-config
+                  key: SERVER_PORT

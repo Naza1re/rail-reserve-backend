@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: train-service-config
+data:
+  DB_RR_URL: "jdbc:postgresql://postgres:5432/rr"
+  SERVER_PORT: "8080"
+  DB_NAME: "rr"

@@ -17,11 +17,20 @@ spec:
           image: postgres:15.3
           env:
             - name: POSTGRES_DB
-              value: rr
+              valueFrom:
+                configMapKeyRef:
+                  name: train-service-config
+                  key: DB_NAME
             - name: POSTGRES_USER
-              value: rr
+              valueFrom:
+                secretKeyRef:
+                  name: train-service-secrets
+                  key: DB_RR_USER
             - name: POSTGRES_PASSWORD
-              value: rr
+              valueFrom:
+                secretKeyRef:
+                  name: train-service-secrets
+                  key: DB_RR_PASS
           ports:
             - containerPort: 5432
           volumeMounts:
