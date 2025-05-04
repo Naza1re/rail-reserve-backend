@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: train-service
-          image: naza1re/train-service:latest
+          image: gcr.io/rail-reserve-458815/train-service:latest
           ports:
             - containerPort: 8080
           env:
