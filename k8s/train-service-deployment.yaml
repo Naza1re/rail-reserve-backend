@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: train-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: train-service
+  template:
+    metadata:
+      labels:
+        app: train-service
+    spec:
+      containers:
+        - name: train-service
+          image: naza1re/train-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_RR_URL
+              value: jdbc:postgresql://postgres:5432/rr
+            - name: DB_RR_USER
+              value: rr
+            - name: DB_RR_PASS
+              value: rr
+            - name: SERVER_PORT
+              value: "8080"
