@@ -42,15 +42,16 @@ jobs:
 
 
 
-      - name: Push Docker image of train-service
+      - name: Tag images with latest and push both tags
         run: |
           docker tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:${{ env.COMMIT_SHA }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:latest
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:latest
-
-      - name: Push latest tag for ticket-service
-        run: |
           docker tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:latest
+
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:${{ env.COMMIT_SHA }}
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:latest
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }}
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:latest
+      
       
       
 
