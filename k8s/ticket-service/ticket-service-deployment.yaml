@@ -17,3 +17,24 @@ spec:
           image: gcr.io/rail-reserve-458815/ticket-service
           ports:
             - containerPort: 8080
+          env:
+            - name: DB_RR_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: train-service-config
+                  key: DB_RR_URL
+            - name: DB_RR_USER
+              valueFrom:
+                secretKeyRef:
+                  name: train-service-secrets
+                  key: DB_RR_USER
+            - name: DB_RR_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: train-service-secrets
+                  key: DB_RR_PASS
+            - name: SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: train-service-config
+                  key: SERVER_PORT
