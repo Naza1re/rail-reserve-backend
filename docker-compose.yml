@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15.3
+    container_name: postgres
+    environment:
+      POSTGRES_USER: rr
+      POSTGRES_PASSWORD: rr
+      POSTGRES_DB: rr
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  train-service:
+    image: naza1re/train-service
+    container_name: train-service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/rr
+      - SPRING_DATASOURCE_USERNAME=rr
+      - SPRING_DATASOURCE_PASSWORD=rr
+    ports:
+      - '8080:8080'
+    networks:
+      - app-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
+
+networks:
+  app-network:
+    driver: bridge
