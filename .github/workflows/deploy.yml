@@ -69,7 +69,7 @@ jobs:
         run: |
           kubectl apply -f k8s/train-service/train-service-deployment.yaml
           kubectl apply -f k8s/train-service/train-service-service.yaml
-          kubectl set image deployment/train-service train-service=gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service${{ env.COMMIT_SHA }}
+          kubectl set image deployment/train-service train-service=gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:${{ env.COMMIT_SHA }}
           
 
       - name: Deploy ticket-service
