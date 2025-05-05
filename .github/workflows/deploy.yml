@@ -44,13 +44,15 @@ jobs:
 
       - name: Push Docker image of train-service
         run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:${{ env.COMMIT_SHA }}
+          docker tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:${{ env.COMMIT_SHA }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:latest
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:latest
 
-      - name: Push Docker image of ticket-service
+      - name: Push latest tag for ticket-service
         run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }}
-
-
+          docker tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:latest
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:latest
+      
+      
 
       - name: Set up GKE credentials
         run: |
