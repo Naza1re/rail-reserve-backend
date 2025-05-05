@@ -2,11 +2,6 @@ name: Run Kotlin Tests
 
 on:
   push:
-    branches:
-      - develop
-  pull_request:
-    branches:
-      - develop
 
 jobs:
   build_and_deploy:
@@ -35,13 +30,27 @@ jobs:
         run: |
           echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Build Docker image
-        run: |
-          docker build --no-cache -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.IMAGE_NAME }}:${{ env.COMMIT_SHA }} ./train-service
 
-      - name: Push Docker image to Google Container Registry
+
+      - name: Build Docker image for train-service
         run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.IMAGE_NAME }}:${{ env.COMMIT_SHA }}
+          docker build --no-cache -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:${{ env.COMMIT_SHA }} ./train-service
+
+      - name: Build Docker image for ticket-service
+        run: |
+          docker build --no-cache -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }} ./ticket-service
+
+
+
+      - name: Push Docker image of train-service
+        run: |
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:${{ env.COMMIT_SHA }}
+
+      - name: Push Docker image of ticket-service
+        run: |
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }}
+
+
 
       - name: Set up GKE credentials
         run: |
@@ -58,4 +67,14 @@ jobs:
 
       - name: Deploy train-service
         run: |
-          kubectl set image deployment/train-service train-service=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.IMAGE_NAME }}:${{ env.COMMIT_SHA }}
+          kubectl apply -f k8s/train-service/train-service-deployment.yaml
+          kubectl apply -f k8s/train-service/train-service-service.yaml
+          kubectl set image deployment/train-service train-service=gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service${{ env.COMMIT_SHA }}
+          
+
+      - name: Deploy ticket-service
+        run: |
+          kubectl apply -f k8s/ticket-service/ticket-service-deployment.yaml
+          kubectl apply -f k8s/ticket-service/ticket-service-service.yaml
+          kubectl set image deployment/ticket-service ticket-service=gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }}
+
