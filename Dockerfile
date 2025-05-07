@@ -1,8 +1,6 @@
 FROM gradle:8.5-jdk17 AS builder
 
 WORKDIR /app
-COPY build.gradle settings.gradle ./
-COPY gradle ./gradle
 COPY . .
 
 RUN gradle bootJar --no-daemon --console=plain

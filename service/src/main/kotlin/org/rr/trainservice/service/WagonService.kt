@@ -4,15 +4,15 @@ import org.rr.trainservice.dto.mapper.WagonMapper
 import org.rr.trainservice.dto.request.WagonRequest
 import org.rr.trainservice.dto.response.WagonResponse
 import org.rr.trainservice.exception.WagonNotFoundException
-import org.rr.trainservice.model.Wagon
-import org.rr.trainservice.repository.WagonRepository
+import model.Wagon
+import repository.WagonRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 
 @Service
 class WagonService(private val wagonRepository: WagonRepository,
-                    private val wagonMapper: WagonMapper) {
+                   private val wagonMapper: WagonMapper) {
     fun getAllWagons(page: Int, size: Int): Page<Wagon> {
         return wagonRepository.findAll(PageRequest.of(page, size))
     }

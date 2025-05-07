@@ -4,7 +4,7 @@ import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.rr.trainservice.dto.request.RouteRequest
 import org.rr.trainservice.dto.response.RouteResponse
-import org.rr.trainservice.model.Route
+import model.Route
 
 @Mapper(componentModel = "spring")
 interface RouteMapper {

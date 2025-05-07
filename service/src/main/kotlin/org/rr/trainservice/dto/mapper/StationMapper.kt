@@ -3,7 +3,7 @@ package org.rr.trainservice.dto.mapper
 import org.mapstruct.Mapper
 import org.rr.trainservice.dto.request.StationRequest
 import org.rr.trainservice.dto.response.StationResponse
-import org.rr.trainservice.model.Station
+import model.Station
 
 @Mapper(componentModel = "spring")
 interface StationMapper {

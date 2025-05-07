@@ -1,6 +1,6 @@
-package org.rr.trainservice.repository
+package repository
 
-import org.rr.trainservice.model.Wagon
+import model.Wagon
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query

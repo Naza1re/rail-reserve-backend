@@ -2,8 +2,8 @@ package org.rr.trainservice.service
 
 import org.rr.trainservice.dto.mapper.RouteStopMapper
 import org.rr.trainservice.dto.request.RouteStopRequest
-import org.rr.trainservice.model.RouteStop
-import org.rr.trainservice.repository.RouteStopRepository
+import model.RouteStop
+import repository.RouteStopRepository
 import org.springframework.stereotype.Service
 
 @Service

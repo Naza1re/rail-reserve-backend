@@ -1,19 +1,19 @@
 package org.rr.trainservice.service
 
+import model.Station
 import org.rr.trainservice.dto.mapper.StationMapper
 import org.rr.trainservice.dto.request.StationRequest
 import org.rr.trainservice.dto.response.StationResponse
 import org.rr.trainservice.exception.StationNotFoundException
-import org.rr.trainservice.model.Station
-import org.rr.trainservice.repository.StationRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import repository.StationRepository
 
 @Service
 class StationService(private val stationRepository : StationRepository,
-                    private val stationMapper: StationMapper
+                     private val stationMapper: StationMapper
 ) {
 
     fun getStationById(id: Long) : Station {

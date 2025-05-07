@@ -1,6 +1,6 @@
-package org.rr.trainservice.repository
+package repository
 
-import org.rr.trainservice.model.Route
+import model.Route
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query

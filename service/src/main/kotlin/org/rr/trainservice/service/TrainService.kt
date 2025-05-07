@@ -1,16 +1,16 @@
 package org.rr.trainservice.service
 
 import jakarta.transaction.Transactional
+import model.Train
+import model.Wagon
 import org.rr.trainservice.dto.request.TrainRequest
 import org.rr.trainservice.dto.response.TrainResponse
 import org.rr.trainservice.exception.TrainNotFoundException
 import org.rr.trainservice.exception.WagonAlreadyAssignedOrNotFoundException
 import org.rr.trainservice.dto.mapper.TrainMapper
-import org.rr.trainservice.model.Train
-import org.rr.trainservice.model.Wagon
 import org.rr.trainservice.model.extensions.assignTo
-import org.rr.trainservice.repository.TrainRepository
-import org.rr.trainservice.repository.WagonRepository
+import repository.TrainRepository
+import repository.WagonRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
@@ -19,7 +19,8 @@ import org.springframework.stereotype.Service
 @Service
 class TrainService(private val trainRepository: TrainRepository,
                    private val trainMapper: TrainMapper,
-                   private val wagonRepository: WagonRepository) {
+                   private val wagonRepository: WagonRepository
+) {
 
     fun getTrainById(id: Long): TrainResponse {
         return trainMapper.toResponse(trainRepository.findById(id).orElseThrow())
