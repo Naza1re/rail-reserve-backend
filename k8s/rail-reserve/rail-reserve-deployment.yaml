@@ -1,40 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: train-service
+  name: rail-reserve
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: train-service
+      app: rail-reserve
   template:
     metadata:
       labels:
-        app: train-service
+        app: rail-reserve
     spec:
       containers:
-        - name: train-service
-          image: gcr.io/rail-reserve-458815/train-service:latest
+        - name: rail-reserve
+          image: gcr.io/rail-reserve-458815/rail-reserve:{{COMMIT_SHA}}
           ports:
             - containerPort: 8080
           env:
             - name: DB_RR_URL
               valueFrom:
                 configMapKeyRef:
-                  name: train-service-config
+                  name: rail-reserve-config
                   key: DB_RR_URL
             - name: DB_RR_USER
               valueFrom:
                 secretKeyRef:
-                  name: train-service-secrets
+                  name: rail-reserve-secrets
                   key: DB_RR_USER
             - name: DB_RR_PASS
               valueFrom:
                 secretKeyRef:
-                  name: train-service-secrets
+                  name: rail-reserve-secrets
                   key: DB_RR_PASS
             - name: SERVER_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: train-service-config
+                  name: rail-reserve-config
                   key: SERVER_PORT
