@@ -51,9 +51,7 @@ jobs:
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:latest
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }}
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:latest
-      
-      
-      
+  
 
       - name: Set up GKE credentials
         run: |
