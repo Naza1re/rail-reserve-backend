@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ticket-service
-          image: gcr.io/rail-reserve-458815/ticket-service
+          image: gcr.io/rail-reserve-458815/ticket-service:{{COMMIT_SHA}}
           ports:
             - containerPort: 8080
           env:

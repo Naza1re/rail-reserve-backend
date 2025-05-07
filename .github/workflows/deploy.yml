@@ -42,16 +42,11 @@ jobs:
 
 
 
-      - name: Tag images with latest and push both tags
+      - name: Push Docker images with commit SHA tag
         run: |
-          docker tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:${{ env.COMMIT_SHA }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:latest
-          docker tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:latest
-
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:${{ env.COMMIT_SHA }}
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:latest
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }}
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:latest
-  
+      
 
       - name: Set up GKE credentials
         run: |
@@ -66,17 +61,19 @@ jobs:
           kubectl apply -f k8s/common/configmap.yaml
           kubectl apply -f k8s/common/secret.yaml
 
+      - name: Template manifests with COMMIT_SHA
+        run: |
+          for file in k8s/train-service/train-service-deployment.yaml \
+                      k8s/ticket-service/ticket-service-deployment.yaml; do
+            sed -i "s|{{COMMIT_SHA}}|${{ env.COMMIT_SHA }}|g" $file
+          done
 
       - name: Deploy train-service
         run: |
           kubectl apply -f k8s/train-service/train-service-deployment.yaml
           kubectl apply -f k8s/train-service/train-service-service.yaml
-          kubectl set image deployment/train-service train-service=gcr.io/${{ secrets.GCP_PROJECT_ID }}/train-service:${{ env.COMMIT_SHA }}
-          
 
       - name: Deploy ticket-service
         run: |
           kubectl apply -f k8s/ticket-service/ticket-service-deployment.yaml
           kubectl apply -f k8s/ticket-service/ticket-service-service.yaml
-          kubectl set image deployment/ticket-service ticket-service=gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-service:${{ env.COMMIT_SHA }}
-
