@@ -2,7 +2,7 @@ package org.rr.trainservice.controller
 
 import org.rr.trainservice.dto.request.WagonRequest
 import org.rr.trainservice.dto.response.WagonResponse
-import org.rr.trainservice.model.Wagon
+import model.Wagon
 import org.rr.trainservice.service.WagonService
 import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus

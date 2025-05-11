@@ -1,4 +1,4 @@
-package org.rr.trainservice.model
+package model
 
 import jakarta.persistence.*
 

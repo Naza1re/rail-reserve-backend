@@ -2,7 +2,7 @@ package org.rr.trainservice.controller
 
 import org.rr.trainservice.dto.request.TrainRequest
 import org.rr.trainservice.dto.response.TrainResponse
-import org.rr.trainservice.model.Train
+import model.Train
 import org.rr.trainservice.service.TrainService
 import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus

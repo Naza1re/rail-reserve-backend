@@ -5,9 +5,9 @@ import org.rr.trainservice.dto.mapper.RouteMapper
 import org.rr.trainservice.dto.request.RouteRequest
 import org.rr.trainservice.dto.response.RouteResponse
 import org.rr.trainservice.exception.RouteNotFoundException
-import org.rr.trainservice.model.Route
+import model.Route
 import org.rr.trainservice.model.extensions.assignToRoute
-import org.rr.trainservice.repository.RouteRepository
+import repository.RouteRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service

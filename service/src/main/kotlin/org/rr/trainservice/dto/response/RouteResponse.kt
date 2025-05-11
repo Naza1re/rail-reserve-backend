@@ -1,6 +1,6 @@
 package org.rr.trainservice.dto.response
 
-import org.rr.trainservice.model.Station
+import model.Station
 
 data class RouteResponse(
     val id: Long,
